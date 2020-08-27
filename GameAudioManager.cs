@@ -9,6 +9,9 @@ public class GameAudioManager : MonoBehaviour
     public AudioSource SFXAudioSource;
     public AudioClip eatSound;
     public GameObject berryManager;
+    public AudioSource caughtf;
+    public AudioSource caughtd;
+    public AudioSource fever;
 
     public Slider bgmVolume; //bgm 슬라이더
     public Slider SFXVolume; //sfx 슬라이더
@@ -21,6 +24,7 @@ public class GameAudioManager : MonoBehaviour
         BGMAudioSource.volume = PlayerPrefs.GetFloat("bgmvol"); //bgm 볼륨 값 적용
         SFXAudioSource.volume = PlayerPrefs.GetFloat("sfxvol"); //sfx 볼륨 값 적용
         this.SFXAudioSource.clip = this.eatSound;
+        
         this.SFXAudioSource.loop = false; //sfx 반복 재생 금지
 
         bgmVol = PlayerPrefs.GetFloat("bgmvol", 1.0f); //"bgmvol"이 비어있을 경우 1.0
@@ -29,6 +33,10 @@ public class GameAudioManager : MonoBehaviour
 
         sfxVol = PlayerPrefs.GetFloat("sfxvol", 1.0f);
         SFXVolume.value = sfxVol;
+        SFXAudioSource.volume = sfxVol;
+        caughtf.volume = sfxVol;
+        caughtd.volume = sfxVol;
+        fever.volume = sfxVol;
     }
 
     void Update()
@@ -155,6 +163,10 @@ public class GameAudioManager : MonoBehaviour
     public void SoundSlider()
     {
         BGMAudioSource.volume = bgmVolume.value; //슬라이더 값을 오디오소스의 volume에 대입
+        caughtf.volume = SFXVolume.value;
+        caughtd.volume = SFXVolume.value;
+        fever.volume = SFXVolume.value;
+        SFXAudioSource.volume = SFXVolume.value;
 
         bgmVol = bgmVolume.value;
         sfxVol = SFXVolume.value;
